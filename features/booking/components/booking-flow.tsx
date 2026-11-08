@@ -6,6 +6,7 @@ import { hc } from "@/shared/lib/layout";
 import { R } from "@/shared/lib/rs";
 import { gbp } from "@/shared/lib/format";
 import { isValidPhone, normalizeUkPhone } from "@/shared/lib/phone";
+import { scrollToFirstError } from "@/shared/lib/scroll-to-error";
 import { BOOKING_TYPES, STYLES } from "@/shared/data/catalog";
 import { HBD_DEPOSIT } from "@/shared/data/site";
 import { Img } from "@/shared/ui/img";
@@ -98,7 +99,11 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
     return !Object.keys(e).length;
   };
   const next = async () => {
-    if (sending || !validate()) return;
+    if (sending) return;
+    if (!validate()) {
+      scrollToFirstError();
+      return;
+    }
     if (step < 3) {
       setStep(step + 1);
       scrollUp();
@@ -113,6 +118,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
     } catch (e) {
       setSendErr(e instanceof Error ? e.message : "We couldn’t send your request. Please try again.");
       setSending(false);
+      scrollToFirstError();
     }
   };
   const back = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useSyncExternalStore, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { Check } from "@phosphor-icons/react";
 import { STYLES, TRAINING } from "@/shared/data/catalog";
@@ -8,8 +8,10 @@ import { HBD_RESPONSE } from "@/shared/data/site";
 import { FieldError } from "@/shared/ui/field-error";
 import { NavLink } from "@/features/shell/components/nav-link";
 import { R } from "@/shared/lib/rs";
+import { scrollToFirstError } from "@/shared/lib/scroll-to-error";
 import { sendContactMessage } from "../lib/send-contact-message";
 
+const subscribeNever = () => () => {};
 type State = "default" | "error" | "submitting" | "success";
 const TOPICS = ["Booking question", "Training", "Bridal / group", "Other"];
 
@@ -31,6 +33,8 @@ export function ContactForm() {
   const [errs, setErrs] = useState<{ email?: boolean; msg?: boolean }>({});
   const [sentTo, setSentTo] = useState("");
   const [sendErr, setSendErr] = useState("");
+  // The button stays inactive until the page is ready, so an early tap can't submit the form the old way (message in the URL).
+  const ready = useSyncExternalStore(subscribeNever, () => true, () => false);
   const busy = state === "submitting";
 
   const send = async (e: FormEvent<HTMLFormElement>) => {
@@ -42,6 +46,7 @@ export function ContactForm() {
     if (next.email || next.msg) {
       setErrs(next);
       setState("error");
+      scrollToFirstError();
       return;
     }
     setErrs({});
@@ -52,6 +57,7 @@ export function ContactForm() {
     } catch (e) {
       setSendErr(e instanceof Error ? e.message : "We couldn’t send your message. Please try again.");
       setState("default");
+      scrollToFirstError();
       return;
     }
     setSentTo(email);
@@ -120,7 +126,7 @@ export function ContactForm() {
           <span aria-hidden="true" style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid rgba(255,254,233,.4)", borderTopColor: "var(--cream)", animation: "hbdspin .8s linear infinite" }} />Sending…
         </button>
       ) : (
-        <button type="submit" className="hbd-btn" style={{ width: "100%" }}>Send to Debz’s inbox</button>
+        <button type="submit" className="hbd-btn" disabled={!ready} style={{ width: "100%", opacity: ready ? 1 : 0.7 }}>Send to Debz’s inbox</button>
       )}
       <p className="hbd-note" style={{ textAlign: "center" }}>No DMs — this form is the only way to reach Debz. Ready to book? <NavLink href="/book">Go straight to booking</NavLink>.</p>
     </form>
