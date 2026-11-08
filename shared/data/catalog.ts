@@ -25,7 +25,7 @@ export const SERVICES: HairStyle[] = [
   { id: "custom-hairline", name: "Custom hairline installation (frontal)", price: 100, time: "3 hrs", imgs: ["laceCurly", "lacePink"], blurb: "Frontal installed with a custom hairline. Extra customization adds £15.", list: { sub: "3 hrs · + £15 per extra customization" } },
   { id: "styling", name: "Styling", price: 50, time: null, blurb: "Curls or any style you want to recreate. Doesn’t include installation." },
   { id: "customization", name: "Customization (frontal / closure) only", price: 45, time: null, blurb: "Hairline customization on your frontal or closure, without an install." },
-  { id: "closure", name: "Closure installation", price: 95, time: null, imgs: ["closureInstall", "lacePink"], blurb: "Low-maintenance and protective, natural finish." },
+  { id: "closure", name: "Closure installation", price: 90, time: null, imgs: ["closureInstall", "lacePink"], blurb: "Low-maintenance and protective, natural finish." },
   { id: "frontal-360", name: "360 frontal install", price: 150, time: "5 hrs", blurb: "Full 360 frontal installed and blended all the way round." },
   { id: "half-up", name: "Frontal installation: half up, half down", price: 110, time: "3 hrs", imgs: ["halfUp", "halfUp2"], blurb: "Half up, half down on a melted frontal." },
   { id: "side-part", name: "Custom hairline frontal installation: centre or side parting with curls", short: "Parting with curls", price: 110, time: "3 hrs", imgs: ["side2", "side1"], blurb: "Centre or side parting with a melted custom hairline, styled in soft curls." },
@@ -57,9 +57,9 @@ export interface BookingType {
 }
 
 export const BOOKING_TYPES: BookingType[] = [
-  { id: "standard", name: "Standard", d: "Request any day, Monday to Sunday.", fee: "No extra fee", extra: null },
+  { id: "standard", name: "Standard", d: "Request any day, Monday to Sunday, 10AM to 7PM (Wed 4:30PM to 9PM, Fri 7PM to 10PM).", fee: "No extra fee", extra: null },
   { id: "same-day", name: "Same-day", d: "For an appointment today, if Debz can fit you in.", fee: "+ £20", extra: 20 },
-  { id: "emergency", name: "Emergency", d: "Urgent or out-of-hours slot, e.g. a last-minute event.", fee: "+ £40", extra: 40 },
+  { id: "emergency", name: "Emergency", d: "Urgent or outside 10AM to 7PM, e.g. a last-minute event.", fee: "+ £40", extra: 40 },
 ];
 
 // Booking policy: final wording from the designer's flyer.
@@ -103,7 +103,7 @@ export const FAQS: ReadonlyArray<readonly [q: string, a: string]> = [
   ["What is the Styling service?", "For my girlies that struggle to curl their hair, or any style you want to recreate. Please note this service doesn’t include installation. It can also be booked same day."],
   ["How can I confirm the time to drop off my hair?", "Please text me through the link on my bio to confirm your drop off time."],
   ["What should I do if I decide to mail my hair instead of dropping it off?", "Please text me through the link on my bio with your tracking number, to ensure I’m available to collect your parcel."],
-  ["On which days are you off work?", "I’m off work every Friday."],
+  ["Which days and times are you available?", "I’m available every day from 10AM to 7PM. On Wednesdays I take appointments from 4:30PM to 9PM, and on Fridays from 7PM to 10PM."],
 ];
 
 export const FAQ_NOTICE: ReadonlyArray<readonly [string, string]> = [

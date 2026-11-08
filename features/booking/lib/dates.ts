@@ -2,7 +2,18 @@
 
 import { useMemo, useSyncExternalStore } from "react";
 
-export const TIMES = ["08:00", "10:00", "12:30", "15:00", "17:30"];
+export const TIMES = ["10:00", "12:30", "15:00", "17:30"];
+/** Debz works shorter hours on these two days, so only these start times are offered. */
+const WEDNESDAY_TIMES = ["16:30", "17:30", "18:30", "19:30", "20:30"];
+const FRIDAY_TIMES = ["19:00", "20:00", "21:00"];
+
+/** Start times Debz offers on a given date. */
+export const timesFor = (d: Date | null | undefined): string[] =>
+  d?.getDay() === 3 ? WEDNESDAY_TIMES : d?.getDay() === 5 ? FRIDAY_TIMES : TIMES;
+
+/** Short note shown when the chosen day has limited hours; null on normal days. */
+export const hoursNote = (d: Date | null | undefined): string | null =>
+  d?.getDay() === 3 ? "Wednesdays: Debz is available 4:30PM to 9PM." : d?.getDay() === 5 ? "Fridays: Debz is available 7PM to 10PM." : null;
 export const STEPS = ["Style", "Request a date", "Your details", "Review & send"];
 
 export const fmtDate = (d: Date | null | undefined) =>

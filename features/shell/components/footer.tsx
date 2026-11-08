@@ -12,7 +12,7 @@ export function Footer() {
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <span className="hbd-eyebrow" style={{ color: "var(--clay-soft)" }}>Visit</span>
           <p>By appointment only<br />{HBD_AREA}</p>
-          <p>Monday – Sunday</p>
+          <p>Monday – Sunday, 10AM – 7PM<br />Wed 4:30PM – 9PM · Fri 7PM – 10PM</p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <span className="hbd-eyebrow" style={{ color: "var(--clay-soft)" }}>Explore</span>

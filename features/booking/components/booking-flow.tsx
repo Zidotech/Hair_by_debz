@@ -16,7 +16,7 @@ import { Header } from "@/features/shell/components/header";
 import { NavLink } from "@/features/shell/components/nav-link";
 import { scrollToForm } from "@/features/about/lib/scroll-to-form";
 import { useShell } from "@/features/shell/shell-context";
-import { fmtDate, nextDays, STEPS, TIMES, useToday } from "../lib/dates";
+import { fmtDate, hoursNote, nextDays, STEPS, timesFor, useToday } from "../lib/dates";
 import { saveBooking } from "../lib/booking-store";
 import { submitBooking } from "../lib/submit-booking";
 import { BookingAlt, type AltValue } from "./booking-alt";
@@ -174,7 +174,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
     </>,
     <>
       <h2 {...R({ fs: [40, 28] })}>Request a date</h2>
-      <p style={{ color: "var(--ink-soft)", marginTop: -12 }}>Any day, Monday to Sunday. Pick your preferred date and time, and add an alternative if you like. Debz confirms by email.</p>
+      <p style={{ color: "var(--ink-soft)", marginTop: -12 }}>Any day, Monday to Sunday, 10AM to 7PM (Wednesdays 4:30PM to 9PM, Fridays 7PM to 10PM). Pick your preferred date and time, and add an alternative if you like. Debz confirms by email. Need a time outside these hours? Choose Emergency in the booking type.</p>
       <div>
         <div className="hbd-label">Booking type<span className="hbd-req" aria-hidden="true">*</span></div>
         <div role="radiogroup" aria-label="Booking type" {...R({ cols: ["repeat(3,1fr)", "repeat(3,1fr)", "1fr"] }, { display: "grid", gap: 10 })}>
@@ -192,10 +192,11 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
           })}
         </div>
       </div>
-      <div><BookingCalendar today={today} value={s.date} onPick={(d) => up("date", d)} />{err.date && <FieldError>{err.date}</FieldError>}</div>
+      <div><BookingCalendar today={today} value={s.date} onPick={(d) => { up("date", d); if (s.time && !timesFor(d).includes(s.time)) up("time", ""); }} />{err.date && <FieldError>{err.date}</FieldError>}</div>
       <div>
         <div className="hbd-label">Preferred start time{s.date ? " · " + fmtDate(s.date) : ""}<span className="hbd-req" aria-hidden="true">*</span></div>
-        <div role="radiogroup" aria-label="Preferred start time" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{TIMES.map((x) => <Choice key={x} on={s.time === x} onClick={() => up("time", x)}>{x}</Choice>)}</div>
+        <div role="radiogroup" aria-label="Preferred start time" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{timesFor(s.date).map((x) => <Choice key={x} on={s.time === x} onClick={() => up("time", x)}>{x}</Choice>)}</div>
+        {hoursNote(s.date) && <p className="hbd-note" style={{ marginTop: 8 }}>{hoursNote(s.date)}</p>}
         {err.time && <FieldError>{err.time}</FieldError>}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>

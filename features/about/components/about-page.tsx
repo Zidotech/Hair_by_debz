@@ -32,7 +32,7 @@ export function AboutPage() {
             <SectionHead light eyebrow="Contact" title="One inbox. Every answer." sub={"Debz doesn’t take bookings or enquiries by Instagram or WhatsApp. Use this form — it lands in her email and she replies by email (" + HBD_RESPONSE + ")."} />
             <div {...R({ fs: [14, 15, 16] }, { display: "flex", flexDirection: "column", gap: 12, color: "var(--cream-2)" })}>
               <div>Studio · {HBD_AREA}, by appointment</div>
-              <div>Days · Monday – Sunday</div>
+              <div>Days · Monday – Sunday, 10AM – 7PM (Wed 4:30PM – 9PM, Fri 7PM – 10PM)</div>
               <div>Email · {HBD_EMAIL}</div>
             </div>
             <Logo kind="tertiary" h={150} color="var(--cream)" className="v-d" style={{ marginTop: 16, opacity: 0.9 }} />
