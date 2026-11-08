@@ -57,7 +57,7 @@ export function GalleryPage() {
         <SectionHead eyebrow="Gallery" title="Real clients. Real hairlines." sub={<><span className="v-m">Tap any look to book it — the style is pre-selected for you.</span><span className="v-d">Every photo is Debz’s own work. Hover any look to see the style and book it — it’s pre-selected in the booking form.</span></>} />
         <span className="hbd-note v-d" style={{ fontSize: 13 }}>{items.length} looks</span>
       </section>
-      <div role="tablist" aria-label="Filter by style" {...R({ pad: ["12px 80px 32px", "0 48px 48px", "0 20px 20px"], top: [0, 69] }, { display: "flex", gap: 8, overflowX: "auto", overflowY: "hidden", overscrollBehaviorX: "contain", scrollbarWidth: "none", position: "sticky", zIndex: 4, background: "var(--cream)" })}>
+      <div role="tablist" aria-label="Filter by style" {...R({ pad: ["12px 80px 32px", "12px 48px 40px", "12px 20px 16px"], top: [0, 69] }, { display: "flex", gap: 8, overflowX: "auto", overflowY: "hidden", overscrollBehaviorX: "contain", scrollbarWidth: "none", position: "sticky", zIndex: 4, background: "var(--cream)" })}>
         {GAL_CATS.map(([id, l]) => (
           <button key={id} type="button" role="tab" aria-selected={cat === id} onClick={() => setCat(id)} className={"hbd-chip" + (cat === id ? " on" : "")} style={{ flexShrink: 0, cursor: "pointer" }}>
             {cat === id && <Check size={14} weight="bold" aria-hidden="true" />}{l}

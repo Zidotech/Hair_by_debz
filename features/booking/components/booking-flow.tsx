@@ -5,6 +5,7 @@ import { ArrowLeft, Check } from "@phosphor-icons/react";
 import { hc } from "@/shared/lib/layout";
 import { R } from "@/shared/lib/rs";
 import { gbp } from "@/shared/lib/format";
+import { isValidPhone, normalizeUkPhone } from "@/shared/lib/phone";
 import { BOOKING_TYPES, STYLES } from "@/shared/data/catalog";
 import { HBD_DEPOSIT } from "@/shared/data/site";
 import { Img } from "@/shared/ui/img";
@@ -90,7 +91,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
     if (step === 2) {
       if (!s.name.trim()) e.name = "Enter your full name.";
       if (!/^\S+@\S+\.\S+$/.test(s.email)) e.email = "Enter a full email, like name@example.com";
-      if (s.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a UK mobile, like +44 7700 900123";
+      if (!isValidPhone(s.phone)) e.phone = "Enter a UK mobile number, like 07700 900123";
     }
     if (step === 3 && !s.agree) e.agree = "Please tick to agree before sending.";
     setErr(e);
@@ -106,7 +107,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
     setSending(true);
     setSendErr("");
     try {
-      const { ref } = await submitBooking({ styleId: s.style!, type: s.type, dateLabel: fmtDate(s.date), time: s.time, altLabel: s.alt1.d ? fmtDate(new Date(s.alt1.d)) + " · " + s.alt1.t : "", name: s.name, email: s.email, phone: s.phone, hair: s.hair, woven: s.woven, notes: s.notes, website: honey.current?.value });
+      const { ref } = await submitBooking({ styleId: s.style!, type: s.type, dateLabel: fmtDate(s.date), time: s.time, altLabel: s.alt1.d ? fmtDate(new Date(s.alt1.d)) + " · " + s.alt1.t : "", name: s.name, email: s.email, phone: normalizeUkPhone(s.phone) ?? s.phone, hair: s.hair, woven: s.woven, notes: s.notes, website: honey.current?.value });
       saveBooking({ ref, styleId: s.style, name: s.name, email: s.email, date: s.date!.toISOString(), time: s.time });
       go("/book/confirmed");
     } catch (e) {
@@ -202,7 +203,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
       <div {...R({ pad: [32, 20], cols: ["1fr 1fr", "1fr 1fr", "1fr"] }, { display: "grid", gap: 20 }, "hbd-card")}>
         {field("name", "Full name", "text", "e.g. Adaeze Okafor", "name")}
         {field("email", "Email (Debz replies here)", "email", "you@email.com", "email")}
-        {field("phone", "Phone", "tel", "+44 7…", "tel")}
+        {field("phone", "UK mobile number", "tel", "07700 900123", "tel")}
         <div>
           <span className="hbd-label">Bringing your own hair?<span className="hbd-req" aria-hidden="true">*</span></span>
           <div role="radiogroup" aria-label="Bringing your own hair?" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>

@@ -1,5 +1,6 @@
 import { BOOKING_TYPES, STYLES } from "@/shared/data/catalog";
 import { HBD_DEPOSIT } from "@/shared/data/site";
+import { normalizeUkPhone } from "@/shared/lib/phone";
 import { esc, INBOX, layout, limited, oneLine, row, sendMail } from "@/shared/server/email";
 
 const gbp = (n: number) => "£" + (n % 1 ? n.toFixed(2) : n);
@@ -20,14 +21,14 @@ export async function POST(req: Request) {
   const type = BOOKING_TYPES.find((t) => t.id === b.type);
   const name = oneLine(str(b.name, 120));
   const email = oneLine(str(b.email, 200));
-  const phone = oneLine(str(b.phone, 40));
+  const phone = normalizeUkPhone(oneLine(str(b.phone, 40))) ?? "";
   const dateLabel = oneLine(str(b.dateLabel, 60));
   const time = oneLine(str(b.time, 20));
   const altLabel = oneLine(str(b.altLabel, 80));
   const notes = str(b.notes, 2000);
   const hair = b.hair === "source" ? "Debz sources the hair" : "Own unit";
   const woven = WOVEN[b.woven as keyof typeof WOVEN];
-  if (!style || !type || !name || !/^\S+@\S+\.\S+$/.test(email) || phone.replace(/\D/g, "").length < 10 || !dateLabel || !time || !woven) {
+  if (!style || !type || !name || !/^\S+@\S+\.\S+$/.test(email) || !phone || !dateLabel || !time || !woven) {
     return Response.json({ error: "Some details are missing or invalid." }, { status: 400 });
   }
 
