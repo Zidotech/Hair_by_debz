@@ -38,7 +38,7 @@ export const SERVICES: HairStyle[] = [
   { id: "double-pony", name: "Double frontal pony", price: 160, time: "5 hrs", imgs: ["doublePony", "ponyBun"], blurb: "Two frontals, one seamless pony." },
   { id: "sew-in", name: "Frontal & closure sew-in", price: 130, time: "4 hrs", imgs: ["sewIn", "ponySewIn"], blurb: "Sew-in with a frontal or closure, flat and natural." },
   { id: "natural-sew-in", name: "Natural hair sew-in", price: 70, time: "3 hrs", imgs: ["naturalSewIn", "ponySewIn"], blurb: "Sew-in on your natural hair. Length and fullness can affect the price." },
-  { id: "glueless-frontal", name: "Glueless frontal", price: 95, time: "3 hrs", blurb: "Glueless frontal install.", list: { name: "Frontal / closure glueless", priceText: "£95 / £90", sub: "3 hrs · frontal £95 · closure £90" } },
+  { id: "glueless-frontal", name: "Glueless frontal", price: 90, time: "3 hrs", blurb: "Glueless frontal install.", list: { name: "Frontal / closure glueless", priceText: "£90 / £90", sub: "3 hrs" } },
   { id: "glueless-closure", name: "Glueless closure", price: 90, time: "3 hrs", blurb: "Glueless closure install.", list: false },
   { id: "revamping", name: "Revamping", price: 50, time: null, blurb: "Refresh and restyle a unit you already own." },
   { id: "bridal", name: "Bridal hair", price: null, time: "Quoted", imgs: ["bridal1", "bridal2"], blurb: "Wedding-day installs and updos, finished to last from the ceremony to the after-party.", featured: true },
