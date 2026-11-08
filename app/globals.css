@@ -60,7 +60,10 @@ font-family:var(--sans);color:var(--ink);background:var(--cream);font-size:16px;
 .hbd header nav a:hover{color:var(--brown)!important}
 .hbd-card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
 .hbd article .hbd-img>img,.pb-style .hbd-img>img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-.hbd article:hover .hbd-img>img,.pb-style:hover .hbd-img>img{transform:scale(1.05)}
+@media(hover:hover){.hbd article:hover .hbd-img>img,.pb-style:hover .hbd-img>img{transform:scale(1.05)}}
+/* Sideways card rail (phone/tablet): scrolls left-right only, snaps card by card, never up-down. */
+@media(max-width:1099px){.hbd-rail{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-padding-inline:48px}.hbd-rail::-webkit-scrollbar{display:none}.hbd-rail>*{scroll-snap-align:start;flex-shrink:0}}
+@media(max-width:699px){.hbd-rail{scroll-padding-inline:20px}}
 .pb-day{transition:background .2s,transform .15s}.pb-day:not([disabled]):hover{transform:scale(1.06);border-color:var(--brown)!important}
 .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
 .rv.up{transform:translateY(-34px)}

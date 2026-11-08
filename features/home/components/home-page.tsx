@@ -49,7 +49,7 @@ export function HomePage() {
           <SectionHead eyebrow="Featured styles" title="Most-booked this season" />
           <NavLink href="/gallery" className="hbd-btn ghost sm v-d">Full gallery</NavLink>
         </div>
-        <div {...R({ disp: ["grid", "flex"], gap: [24, 16], ox: ["visible", "auto"], mar: [0, "0 -20px"], pad: [0, "0 48px", "0 20px"] }, { gridTemplateColumns: "repeat(4,1fr)" })}>
+        <div {...R({ disp: ["grid", "flex"], gap: [24, 16], ox: ["visible", "auto"], mar: [0, "0 -20px"], pad: [0, "0 48px", "0 20px"] }, { gridTemplateColumns: "repeat(4,1fr)", alignItems: "stretch" }, "hbd-rail")}>
           {STYLES.filter((s) => s.featured && s.imgs).map((s) => (
             <article key={s.id} {...R({ sz: [0, 220] }, { display: "flex", flexDirection: "column", gap: 12 })}>
               <Img k={s.imgs![0]} alt={s.short ?? s.name} ratio="3/4" sizes="(max-width: 1100px) 60vw, 22vw" />
@@ -58,7 +58,7 @@ export function HomePage() {
                 <span>{s.price == null ? "Price on request" : "from " + gbp(s.price)}</span>
                 <span>{s.price == null ? "" : s.time}</span>
               </div>
-              <NavLink href={`/book?style=${s.id}`} style={{ fontSize: 12, fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", minHeight: 44, display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+              <NavLink href={`/book?style=${s.id}`} style={{ fontSize: 12, fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase", minHeight: 44, display: "flex", alignItems: "center", gap: 8, textDecoration: "none", marginTop: "auto" }}>
                 Book this style <ArrowRight size={16} weight="bold" aria-hidden="true" />
               </NavLink>
             </article>
