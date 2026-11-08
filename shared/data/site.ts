@@ -1,6 +1,7 @@
 export const HBD_EMAIL = "hello@hairbydebz.co.uk";
 export const HBD_AREA = "Northwest London, Finchley Road";
-export const HBD_RESPONSE = "[response time, to confirm with Debz]";
+/** Shown on the confirmation page and after the contact form. Matches the FAQ opening hours. */
+export const HBD_RESPONSE = "within a few hours, 10AM – 7PM";
 export const HBD_DEPOSIT = 0.2;
 
 export const NAV: ReadonlyArray<readonly [href: string, label: string]> = [

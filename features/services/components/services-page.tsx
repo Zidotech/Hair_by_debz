@@ -61,7 +61,7 @@ export function ServicesPage() {
         <p className="hbd-note">Same-day bookings add £20 and emergency bookings add £40 to the standard price.</p>
       </section>
 
-      <section {...R({ pad: ["0 80px 120px", "0 48px 64px", "0 20px 64px"] })}>
+      <section id="policy" {...R({ pad: ["0 80px 120px", "0 48px 64px", "0 20px 64px"] }, { scrollMarginTop: 90 })}>
         <div {...R({ pad: [48, 24] }, { background: "var(--cream-2)", borderRadius: 24, display: "flex", flexDirection: "column", gap: 32 })}>
           <SectionHead eyebrow="Booking policy" title="Please read before payment" />
           <div {...R({ cols: ["repeat(4,1fr)", "repeat(2,minmax(0,1fr))", "1fr"], gap: [32, 24] }, { display: "grid" })}>

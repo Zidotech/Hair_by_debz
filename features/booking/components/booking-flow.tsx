@@ -250,20 +250,28 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
           ))}
         </div>
       ))}
-      <div>
-        <label {...R({ fs: [15, 16] }, { display: "flex", gap: 12, alignItems: "flex-start", minHeight: 44, padding: 16, borderRadius: 14, border: err.agree ? "2px solid var(--error)" : "1px solid var(--line)", background: "#fff", cursor: "pointer" })}>
-          <input type="checkbox" className="hbd-check" checked={s.agree} onChange={(e) => up("agree", e.target.checked)} aria-invalid={!!err.agree || undefined} />
-          <span>I agree to the booking policy: the 20% deposit (paid online via the link Debz emails) confirms my booking and is non-refundable; the balance is paid in cash on the day; late fees apply and the appointment expires 30 minutes after the scheduled time.<span className="hbd-req" aria-hidden="true">*</span></span>
-        </label>
-        {err.agree && <FieldError>{err.agree}</FieldError>}
-      </div>
       <input ref={honey} name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }} />
       {sendErr && <div role="alert" style={{ padding: 14, borderRadius: 12, background: "var(--error-soft)", color: "var(--error)", fontWeight: 600, border: "1px solid var(--error)" }}>{sendErr}</div>}
     </>,
   ][step];
 
+  /** Policy tick, shown right above the send button so it can't be missed. */
+  const agreeBox = (dark: boolean) => (
+    <div style={{ flexBasis: "100%", width: "100%" }}>
+      <label style={{ display: "flex", gap: 12, alignItems: "flex-start", minHeight: 44, padding: dark ? "4px 0" : 14, borderRadius: 14, border: dark ? "0" : err.agree ? "2px solid var(--error)" : "1px solid var(--line)", background: dark ? "transparent" : "#fff", cursor: "pointer", fontSize: 14, lineHeight: 1.45, color: dark ? "var(--cream)" : "var(--ink)" }}>
+        <input type="checkbox" className="hbd-check" checked={s.agree} onChange={(e) => up("agree", e.target.checked)} aria-invalid={!!err.agree || undefined} aria-describedby={err.agree ? "agree-err" : undefined} />
+        <span>
+          I agree to the{" "}
+          <a href="/services#policy" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline", fontWeight: 600 }}>booking policy</a>
+          : the 20% deposit is non-refundable, the balance is paid in cash on the day, and late fees apply.
+        </span>
+      </label>
+      {err.agree && <div id="agree-err" role="alert" style={{ marginTop: 6, fontSize: 13, fontWeight: 600, color: dark ? "#ffd7cf" : "var(--error)" }}>{err.agree}</div>}
+    </div>
+  );
+
   const btn = (full: boolean) => (
-    <button type="button" className={"hbd-btn" + (full ? "" : " light sm")} onClick={next} disabled={sending} aria-busy={sending || undefined} style={{ width: full ? "100%" : undefined, ...(sending ? { background: full ? "var(--brown)" : "var(--cream)", color: full ? "var(--cream)" : "var(--brown)", borderStyle: "solid", cursor: "progress" } : {}) }}>
+    <button type="button" className={"hbd-btn" + (full ? "" : " light sm")} onClick={next} disabled={sending} aria-busy={sending || undefined} style={{ width: full || step === 3 ? "100%" : undefined, flexShrink: 0, ...(sending ? { background: full ? "var(--brown)" : "var(--cream)", color: full ? "var(--cream)" : "var(--brown)", borderStyle: "solid", cursor: "progress" } : {}) }}>
       {sending && <span aria-hidden="true" style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid currentColor", borderTopColor: "transparent", animation: "hbdspin .8s linear infinite" }} />}
       {ctaLabel(full)}
     </button>
@@ -303,6 +311,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
           {(
             <div className="v-d" style={{ display: "flex", flexDirection: "column", gap: 16, position: "sticky", top: 24 }}>
               <BookingSummary st={st} type={s.type} date={s.date} time={s.time} />
+              {step === 3 && agreeBox(false)}
               {btn(true)}
               {step === 3 && <p className="hbd-note" style={{ textAlign: "center" }}>Sends to Debz’s inbox. You’ll get a copy by email.</p>}
             </div>
@@ -311,14 +320,15 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
       </section>
       </main>
       {(
-        <div {...R({ pad: ["14px 20px 22px", "16px 48px 22px", "14px 20px 22px"] }, { position: "sticky", bottom: 0, background: "var(--brown)", color: "var(--cream)", display: "flex", alignItems: "center", gap: 16, zIndex: 5 }, "v-m")}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 12, letterSpacing: ".08em", textTransform: "uppercase", color: "var(--clay-soft)" }}>Deposit after confirmation</div>
+        <div {...R({ pad: ["14px 20px 22px", "16px 48px 22px", "14px 20px 22px"] }, { position: "sticky", bottom: 0, background: "var(--brown)", color: "var(--cream)", display: "flex", flexWrap: "wrap", rowGap: 10, alignItems: "center", gap: 16, zIndex: 5 }, "v-m")}>
+          <div style={{ flex: "1 1 0", minWidth: 0, overflow: "hidden" }}>
+            <div style={{ fontSize: 12, letterSpacing: ".08em", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", textTransform: "uppercase", color: "var(--clay-soft)" }}>Deposit</div>
             <div style={{ fontFamily: "var(--serif)", fontSize: 22 }}>
               {st ? (st.price == null ? "Quoted" : gbp(st.price * HBD_DEPOSIT)) : "—"}{" "}
               {st && st.price != null && <span style={{ fontFamily: "var(--sans)", fontSize: 13, color: "var(--cream-2)" }}>of {gbp(st.price)}</span>}
             </div>
           </div>
+          {step === 3 && agreeBox(true)}
           {btn(false)}
         </div>
       )}
