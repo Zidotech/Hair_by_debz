@@ -3,6 +3,8 @@ import type { ImgKey } from "./media";
 export interface HairStyle {
   id: string;
   name: string;
+  /** Shorter name for cards (home page, booking grid); the price list keeps the full name */
+  short?: string;
   price: number | null;
   time: string | null;
   /** Photos for the booking card. Services Debz hasn't sent media for yet have none and show the logo tile. */
@@ -26,8 +28,8 @@ export const SERVICES: HairStyle[] = [
   { id: "closure", name: "Closure installation", price: 95, time: null, imgs: ["closureInstall", "lacePink"], blurb: "Low-maintenance and protective, natural finish." },
   { id: "frontal-360", name: "360 frontal install", price: 150, time: "5 hrs", blurb: "Full 360 frontal installed and blended all the way round." },
   { id: "half-up", name: "Frontal installation: half up, half down", price: 110, time: "3 hrs", imgs: ["halfUp", "halfUp2"], blurb: "Half up, half down on a melted frontal." },
-  { id: "side-part", name: "Custom hairline frontal installation: centre or side parting with curls", price: 110, time: "3 hrs", imgs: ["side2", "side1"], blurb: "Centre or side parting with a melted custom hairline, styled in soft curls." },
-  { id: "bussdown", name: "Custom hairline frontal installation: bussdown (straight / curly hair)", price: 100, time: "2.5 hrs", imgs: ["bussMiddle", "bussNoPart"], blurb: "Dead-centre part, flat-laid, custom hairline with invisible lace. Straight or curly hair.", featured: true },
+  { id: "side-part", name: "Custom hairline frontal installation: centre or side parting with curls", short: "Parting with curls", price: 110, time: "3 hrs", imgs: ["side2", "side1"], blurb: "Centre or side parting with a melted custom hairline, styled in soft curls." },
+  { id: "bussdown", name: "Custom hairline frontal installation: bussdown (straight / curly hair)", short: "Bussdown install", price: 100, time: "2.5 hrs", imgs: ["bussSleek", "bussCurls"], blurb: "Dead-centre part, flat-laid, custom hairline with invisible lace. Straight or curly hair.", featured: true },
   { id: "frontal-updo", name: "Frontal updo wig install", price: 115, time: "4 hrs", imgs: ["updo", "bday2"], blurb: "Sculpted updo on a frontal unit, polished from every angle.", featured: true },
   { id: "layering", name: "Layering", price: 40, time: null, imgs: ["layers", "layers"], blurb: "Layers cut into your unit for movement and body." },
   { id: "baby-hairs", name: "Frontal install with baby hairs", price: 105, time: "3 hrs", imgs: ["babyHair", "laceCurly"], blurb: "Frontal install finished with soft, natural baby hairs." },

@@ -151,7 +151,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
                       {x.imgs && <Img k={x.imgs[0]} alt="" ratio="4/3" r={0} sizes="(max-width: 700px) 45vw, 25vw" />}
                       {on && <span style={{ position: "absolute", top: 8, right: 8, width: 28, height: 28, borderRadius: "50%", background: "var(--brown)", color: "var(--cream)", display: "flex", alignItems: "center", justifyContent: "center", animation: "pPop .3s" }}><Check size={15} weight="bold" aria-label="Selected" /></span>}
                       <span {...R({ pad: [14, 12, 10] }, { display: "flex", flexDirection: "column", gap: 4, flex: 1, paddingRight: x.imgs ? undefined : 40 })}>
-                        <span {...R({ fs: [17, 16, 15] }, { fontFamily: "var(--serif)", color: "var(--brown)", lineHeight: 1.25, overflowWrap: "anywhere" })}>{x.name}</span>
+                        <span {...R({ fs: [17, 16, 15] }, { fontFamily: "var(--serif)", color: "var(--brown)", lineHeight: 1.25, overflowWrap: "anywhere" })}>{x.short ?? x.name}</span>
                         <span style={{ fontSize: 13, color: "var(--ink-soft)", marginTop: "auto", paddingTop: 2 }}>{x.price == null ? "Price on request" : gbp(x.price)}{x.time && x.price != null ? " · " + x.time : ""}</span>
                       </span>
                     </button>

@@ -38,6 +38,7 @@ const POSTER_IMGS = {
   babyHair: "/media/vid/baby-hair.webp",
   doublePony: "/media/vid/double-pony.webp",
   sewIn: "/media/vid/sew-in.webp",
+  bussCurls: "/media/vid/bussdown-curls.webp",
   closureInstall: "/media/vid/closure-installation.webp",
   naturalSewIn: "/media/vid/natural-hair-sew-in.webp",
 } as const;

@@ -52,8 +52,8 @@ export function HomePage() {
         <div {...R({ disp: ["grid", "flex"], gap: [24, 16], ox: ["visible", "auto"], mar: [0, "0 -20px"], pad: [0, "0 48px", "0 20px"] }, { gridTemplateColumns: "repeat(4,1fr)" })}>
           {STYLES.filter((s) => s.featured && s.imgs).map((s) => (
             <article key={s.id} {...R({ sz: [0, 220] }, { display: "flex", flexDirection: "column", gap: 12 })}>
-              <Img k={s.imgs![0]} alt={s.name} ratio="3/4" sizes="(max-width: 1100px) 60vw, 22vw" />
-              <h3 style={{ fontSize: 20 }}>{s.name}</h3>
+              <Img k={s.imgs![0]} alt={s.short ?? s.name} ratio="3/4" sizes="(max-width: 1100px) 60vw, 22vw" />
+              <h3 style={{ fontSize: 20 }}>{s.short ?? s.name}</h3>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, color: "var(--ink-soft)" }}>
                 <span>{s.price == null ? "Price on request" : "from " + gbp(s.price)}</span>
                 <span>{s.price == null ? "" : s.time}</span>
