@@ -126,3 +126,5 @@ font-family:var(--sans);color:var(--ink);background:var(--cream);font-size:16px;
 .faq-item summary::after{content:"+";position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:400;color:var(--clay-text)}
 .faq-item[open] summary::after{content:"–"}
 .faq-item p{padding:0 24px 20px;color:var(--ink-soft)}
+
+.pb-scroll{scrollbar-width:none}.pb-scroll::-webkit-scrollbar{display:none}

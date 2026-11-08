@@ -145,7 +145,7 @@ export function BookingFlow({ styleId }: { styleId: string | null }) {
       <h2 {...R({ fs: [40, 28] })}>Which style are we doing?</h2>
       <p style={{ color: "var(--ink-soft)", marginTop: -12 }}>Scroll and tap a service. You can switch any time before you send your request.</p>
       {err.style && <FieldError>{err.style}</FieldError>}
-      <div ref={list} tabIndex={-1} {...R({}, { maxHeight: "min(640px, 70vh)", overflowY: "auto", overscrollBehavior: "contain", padding: 6, margin: -6, borderRadius: 18 }, "pb-scroll")}>
+      <div ref={list} tabIndex={-1} {...R({}, { maxHeight: "min(640px, 70vh)", overflowY: "auto", overscrollBehavior: "contain", scrollbarWidth: "none", padding: 6, margin: -6, borderRadius: 18 }, "pb-scroll")}>
         <div role="radiogroup" aria-label="Style" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           {[STYLES.filter((x) => x.imgs), STYLES.filter((x) => !x.imgs)].map((group, gi) => (
             <div key={gi} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
